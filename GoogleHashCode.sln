@@ -25,6 +25,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2017_Final", "2017_Final\20
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2018_Final", "2018_Final\2018_Final.csproj", "{7E2A6BDE-7403-4B05-8484-7AE52211AF3B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PizzaProblem", "PizzaProblem\PizzaProblem.csproj", "{36A64C87-2428-408D-A8D1-48555E03458B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -75,6 +77,10 @@ Global
 		{7E2A6BDE-7403-4B05-8484-7AE52211AF3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7E2A6BDE-7403-4B05-8484-7AE52211AF3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7E2A6BDE-7403-4B05-8484-7AE52211AF3B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{36A64C87-2428-408D-A8D1-48555E03458B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{36A64C87-2428-408D-A8D1-48555E03458B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{36A64C87-2428-408D-A8D1-48555E03458B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{36A64C87-2428-408D-A8D1-48555E03458B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
