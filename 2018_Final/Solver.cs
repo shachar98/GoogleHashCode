@@ -42,7 +42,6 @@ namespace _2018_Final
                 MatrixCoordinate first = possiblePoints[0];
                 if (first.Row == 99)
                 {
-                    int n = 0;
                 }
                 possiblePoints.RemoveAt(0);
                 BuildingProject bestProject = GetBestFit(input.BuildingProjects, filledCells, first);
@@ -51,7 +50,6 @@ namespace _2018_Final
 
                 if (output.Buildings.Count == 1700)
                 {
-                    int r = 0;
                 }
                 first = AddBestProject(filledCells, first, bestProject);
 
@@ -183,7 +181,6 @@ namespace _2018_Final
 
                         if (output.Buildings.Count == 0)
                         {
-                            int r = 0;
                         }
                         output.Buildings.Add(new OutputBuilding()
                         {
@@ -231,7 +228,6 @@ namespace _2018_Final
                 {
                     if (filledCells[row + first.Row, first.Column + col].IsOccupied)
                     {
-                        int n = 0;
                     }
                     filledCells[row + first.Row, first.Column + col].IsOccupied = bestProject.Plan[row, col];
                     filledCells[row + first.Row, first.Column + col].BuildingType = bestProject.BuildingType;

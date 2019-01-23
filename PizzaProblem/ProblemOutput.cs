@@ -17,5 +17,9 @@ namespace PizzaProblem
         public int maxRow { get; set; }
         public int minCol { get; set; }
         public int maxCol { get; set; }
+
+        public int RowSize { get { return maxRow - minRow; } }
+        public int ColSize { get { return maxCol - minCol; } }
+        public int Size { get { return RowSize * ColSize; } }
     }
 }

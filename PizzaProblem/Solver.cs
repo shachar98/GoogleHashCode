@@ -11,7 +11,77 @@ namespace PizzaProblem
     {
         protected override ProblemOutput Solve(ProblemInput input)
         {
-            throw new NotImplementedException();
+            ProblemOutput output = new ProblemOutput() { Slices = new List<Slice>() };
+            Queue<MatrixCoordinate> queue = new Queue<MatrixCoordinate>();
+            queue.Enqueue(new MatrixCoordinate(0, 0));
+            while(queue.Count != 0)
+            {
+                var coor = queue.Dequeue();
+                Slice slice =  GetSlice(coor, coor, input);
+                if (slice != null)
+                {
+                    output.Slices.Add(slice);
+                    queue.Enqueue(new MatrixCoordinate(slice.minRow, slice.maxCol));
+                    queue.Enqueue(new MatrixCoordinate(slice.maxRow, slice.minCol));
+                }
+                else
+                {
+                    MatrixCoordinate item = new MatrixCoordinate(coor.Row + 1, coor.Column);
+                    if (item.InMatrix(input.Cells))
+                        queue.Enqueue(item);
+
+                    MatrixCoordinate item1 = new MatrixCoordinate(coor.Row, coor.Column + 1);
+                    if (item1.InMatrix(input.Cells))
+                        queue.Enqueue(item1);
+                }
+            }
+            return output;
+        }
+
+        private Slice GetSlice(MatrixCoordinate coor1, MatrixCoordinate coor2, ProblemInput input)
+        {
+            Queue<Slice> queue = new Queue<Slice>();
+            queue.Enqueue(new Slice() { minRow = coor1.Row, minCol = coor1.Column, maxRow = coor2.Row, maxCol = coor2.Column });
+            while (queue.Count != 0)
+            {
+                Slice slice = queue.Dequeue();
+                if (IsSliceValid(slice, input))
+                    return slice;
+
+                queue.Enqueue(new Slice() { minRow = slice.minRow, minCol = slice.minCol, maxCol = slice.maxCol, maxRow = slice.maxRow + 1 });
+                queue.Enqueue(new Slice() { minRow = slice.minRow, minCol = slice.minCol, maxCol = slice.maxCol + 1, maxRow = slice.maxRow});
+            }
+
+            return null;
+        }
+
+        private bool IsSliceValid(Slice slice, ProblemInput input)
+        {
+            var tCount = 0;
+            var mCount = 0;
+            if (slice.Size <= input.MaxSliceSize)
+            {
+                for (int row = slice.minRow; row <= slice.maxRow; row++)
+                {
+                    for (int col = slice.minCol; col < slice.maxCol; col++)
+                    {
+                        if(input.Cells[row, col] == Cell.M)
+                        {
+                            mCount++;
+                        }
+                        else
+                        {
+                            tCount++;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                return false;
+            }
+
+            return tCount >= input.MinIngredients && mCount >= input.MinIngredients;
         }
     }
 }
