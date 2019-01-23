@@ -25,9 +25,9 @@ namespace PizzaProblem
                 for (int j = 0; j < s.Length; j++)
                 {
                     if (s[j] == 'T')
-                        input.Cells[i, j] = new Cell();
+                        input.Cells[i, j] = Cell.T;
                     else
-                        input.Cells[i, j] = new Cell();
+                        input.Cells[i, j] = Cell.M;
                 }
             }
 

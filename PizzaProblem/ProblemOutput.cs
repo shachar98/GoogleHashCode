@@ -9,6 +9,7 @@ namespace PizzaProblem
     public class ProblemOutput
     {
         public List<Slice> Slices { get; set; }
+        public ProblemInput Input { get; set; }
     }
 
     public class Slice

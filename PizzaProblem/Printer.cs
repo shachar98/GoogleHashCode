@@ -12,6 +12,7 @@ namespace PizzaProblem
     {
         public override void PrintToConsole(ProblemOutput result)
         {
+            Console.WriteLine(result.Slices.Count);
             foreach (var item in result.Slices)
             {
                 Console.WriteLine($"{item.minRow} {item.minCol} {item.maxRow} {item.maxCol}");
@@ -22,7 +23,7 @@ namespace PizzaProblem
         {
             using (StreamWriter writer = new StreamWriter(outputPath))
             {
-                writer.WriteLine(result.Slices.ToString());
+                writer.WriteLine(result.Slices.Count);
                 foreach (var item in result.Slices)
                 {
                     writer.WriteLine($"{item.minRow} {item.minCol} {item.maxRow} {item.maxCol}");
