@@ -48,8 +48,14 @@ namespace PizzaProblem
                 if (IsSliceValid(slice, input))
                     return slice;
 
-                queue.Enqueue(new Slice() { minRow = slice.minRow, minCol = slice.minCol, maxCol = slice.maxCol, maxRow = slice.maxRow + 1 });
-                queue.Enqueue(new Slice() { minRow = slice.minRow, minCol = slice.minCol, maxCol = slice.maxCol + 1, maxRow = slice.maxRow});
+                if (slice.Size > input.MaxSliceSize)
+                    return null;
+
+                if (slice.maxRow + 1 < input.Rows)
+                    queue.Enqueue(new Slice() { minRow = slice.minRow, minCol = slice.minCol, maxCol = slice.maxCol, maxRow = slice.maxRow + 1 });
+
+                if (slice.maxCol+ 1 < input.Columns)
+                    queue.Enqueue(new Slice() { minRow = slice.minRow, minCol = slice.minCol, maxCol = slice.maxCol + 1, maxRow = slice.maxRow});
             }
 
             return null;
@@ -61,9 +67,9 @@ namespace PizzaProblem
             var mCount = 0;
             if (slice.Size <= input.MaxSliceSize)
             {
-                for (int row = slice.minRow; row <= slice.maxRow; row++)
+                for (int row = slice.minRow; row <= slice.maxRow && row < input.Rows; row++)
                 {
-                    for (int col = slice.minCol; col < slice.maxCol; col++)
+                    for (int col = slice.minCol; col < slice.maxCol && col < input.Columns; col++)
                     {
                         if(input.Cells[row, col] == Cell.M)
                         {
