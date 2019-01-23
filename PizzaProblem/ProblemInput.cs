@@ -16,7 +16,9 @@ namespace PizzaProblem
         public Cell[,] Cells { get; set; }
     }
 
-    public class Cell
+    public enum Cell
     {
+        T,
+        M
     }
 }
