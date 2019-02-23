@@ -40,7 +40,7 @@ namespace _2015_Qual_WithLiron
 
             OrderdRows = Rows.OrderBy(_ => _.Capacity).Select(_ => _.Index).ToList();
 
-            Capacity = OrderdRows.Sum() - OrderdRows.First();
+            Capacity = Rows.Sum(_ => _.Capacity) - Rows[OrderdRows.Last()].Capacity;
         }
 
         public class SlotRow : IndexedObject

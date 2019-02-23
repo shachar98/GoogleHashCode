@@ -20,7 +20,8 @@ namespace _2015_Qual_WithLiron
 
             foreach (var item in output.Servers)
             {
-                pools[item.PoolId].AddServer(item, item.Slot.RowId);
+                var server = input.Servers[item.Index];
+                pools[item.PoolId].AddServer(server, item.Slot.RowId);
             }
 
             var result =  pools.Min(_ => _.Capacity);

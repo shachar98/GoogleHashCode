@@ -42,7 +42,7 @@ namespace _2015_Qual_WithLiron
 
         private void InitSlots()
         {
-            m_Slots = new bool[m_ProblemInput.ServersNum, m_ProblemInput.Slots];
+            m_Slots = new bool[m_ProblemInput.Rows, m_ProblemInput.Slots];
             foreach (Slot currSlot in m_ProblemInput.UnavailableSlots)
             {
                 m_Slots[currSlot.RowId, currSlot.SlotId] = true;
