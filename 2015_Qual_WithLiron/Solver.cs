@@ -16,6 +16,7 @@ namespace _2015_Qual_WithLiron
         protected override ProblemOutput Solve(ProblemInput input)
         {
             m_ProblemInput = input;
+            InitPools();
             InitSlots();
 
             List<Server> orderedServers = OrderServersByCapacity().ToList();
@@ -28,6 +29,15 @@ namespace _2015_Qual_WithLiron
             AssignServers(sizeOneServers);
 
             return new ProblemOutput() { Servers = input.Servers };
+        }
+
+        private void InitPools()
+        {
+            m_Pools = new List<Pool>();
+            for (int i = 0; i < m_ProblemInput.Pools; i++)
+            {
+                m_Pools.Add(new Pool(i, m_ProblemInput.Rows));
+            }
         }
 
         private void InitSlots()
@@ -103,6 +113,7 @@ namespace _2015_Qual_WithLiron
                     if (freeSpace == server.Capacity)
                     {
                         server.Assigned = true;
+                        server.Slot = new Slot() { RowId = row, SlotId = slot };
                         pool.AddServer(server, row);
                         return true;
                     }

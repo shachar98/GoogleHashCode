@@ -20,7 +20,7 @@ namespace _2015_Qual_WithLiron
             for (int i = 0; i < input.UnavailableSlotsNum; i++)
             {
                 string[] coor = reader.ReadLine().Split(' ');
-                Slot slot = new Slot(i);
+                Slot slot = new Slot();
                 checked
                 {
                     slot.RowId = int.Parse(coor[0]);
