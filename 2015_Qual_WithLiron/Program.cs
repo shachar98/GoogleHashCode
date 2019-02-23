@@ -13,9 +13,13 @@ namespace _2015_Qual_WithLiron
         {
             Runner<ProblemInput, ProblemOutput> runner1 = new Runner<ProblemInput, ProblemOutput>(
                 "2015", new Parser(), new Solver(), new Printer(), new Calculator());
-            runner1.Run(Properties.Resources.Input, "2015_example", 1, true);
+            runner1.Run(Properties.Resources.example, "2015_example", 1, true);
 
-            ZipCreator.CreateCodeZip("2015_example");
+            Runner<ProblemInput, ProblemOutput> runner2 = new Runner<ProblemInput, ProblemOutput>(
+                "2015", new Parser(), new Solver(), new Printer(), new Calculator());
+            runner2.Run(Properties.Resources.Input, "2015_input", 1, true);
+
+            ZipCreator.CreateCodeZip("2015_input");
 
             Console.Read();
         }
