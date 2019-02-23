@@ -9,10 +9,10 @@ namespace _2015_Qual_WithLiron
     public class Pool
     {
         public int Capacity { get; set; }
-        public List<Machine> Machines { get; set; }
+        public List<Server> Servers { get; set; }
     }
 
-    public class Machine
+    public class Server
     {
         public int Size { get; set; }
         public int Capacity { get; set; }
