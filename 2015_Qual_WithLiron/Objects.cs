@@ -19,38 +19,49 @@ namespace _2015_Qual_WithLiron
             {
                 Rows[i] = new SlotRow(i) { Capacity = 0 };
             }
-            OrderdRows = Rows.OrderBy(_ => _.Capacity).Select(_ => _.Index).ToList();
+            OrderdRows = Rows.OrderBy(_ => _.Capacity).ToList();
             Servers = new List<Server>();
+
+            if (AllRows == null || AllRows.Length != numOfRows)
+            {
+                AllRows = new SlotRow[numOfRows];
+                for (int i = 0; i < numOfRows; i++)
+                {
+                    AllRows[i] = new SlotRow(i) { Capacity = 0 };
+                }
+            }
         }
 
-        public int Capacity { get; set; }
+        public long Capacity { get; set; }
         public List<Server> Servers { get; set; }
+        private static SlotRow[] AllRows;
         public SlotRow[] Rows;
-        private List<int> OrderdRows;
+        private List<SlotRow> OrderdRows;
 
-        public List<int> GetOrderedRows()
+        public List<SlotRow> GetOrderedRows()
         {
-            return OrderdRows;
+            return Rows.OrderBy(_ => _.Capacity * 100000 + AllRows[_.Index].Capacity).ToList();
         }
 
         public void AddServer(Server server, int row)
         {
             Servers.Add(server);
             Rows[row].Capacity += server.Capacity;
+            AllRows[row].Capacity += server.Capacity;
 
-            OrderdRows = Rows.OrderBy(_ => _.Capacity).Select(_ => _.Index).ToList();
+            OrderdRows = Rows.OrderBy(_ => _.Capacity).ToList();
 
-            Capacity = Rows.Sum(_ => _.Capacity) - Rows[OrderdRows.Last()].Capacity;
+            Capacity = Rows.Sum(_ => _.Capacity) - OrderdRows.Last().Capacity;
         }
+    }
 
-        public class SlotRow : IndexedObject
+    public class SlotRow : IndexedObject
+    {
+        public SlotRow(int index) : base(index)
         {
-            public SlotRow(int index) : base(index)
-            {
-            }
-
-            public int Capacity { get; set; }
         }
+
+        public long Capacity { get; set; }
     }
 
     public class Server : IndexedObject

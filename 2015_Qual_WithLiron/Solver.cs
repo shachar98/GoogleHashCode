@@ -78,7 +78,8 @@ namespace _2015_Qual_WithLiron
 
                 foreach (var pool in pools)
                 {
-                    foreach (int row in pool.GetOrderedRows())
+                    List<SlotRow> orderedRows = pool.GetOrderedRows();
+                    foreach (int row in orderedRows.Select(_ => _.Index))
                     {
                         if (TryAssignServerToRow(server, row, pool))
                         {
