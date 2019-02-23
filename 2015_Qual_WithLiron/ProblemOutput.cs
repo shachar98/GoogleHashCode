@@ -8,6 +8,6 @@ namespace _2015_Qual_WithLiron
 {
     public class ProblemOutput
     {
-        public IEnumerable<Server> Servers { get; set; } = new List<Server>();
+        public List<Server> Servers { get; set; } = new List<Server>();
     }
 }
