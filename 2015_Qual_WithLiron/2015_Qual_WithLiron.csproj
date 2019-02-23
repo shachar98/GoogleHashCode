@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Parser.cs" />
+    <Compile Include="Objects.cs" />
     <Compile Include="Printer.cs" />
     <Compile Include="ProblemInput.cs" />
     <Compile Include="ProblemOutput.cs" />
@@ -74,7 +75,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\example.in.txt" />
+    <Content Include="Resources\dc.in.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
