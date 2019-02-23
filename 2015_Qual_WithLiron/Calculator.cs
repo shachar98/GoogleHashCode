@@ -12,21 +12,18 @@ namespace _2015_Qual_WithLiron
     {
         public override long Calculate(ProblemInput input, ProblemOutput output)
         {
-
-            var pools = new Dictionary<int, int>();
-            foreach (var item in output.Servers)
+            var pools = new List<Pool>();
+            for (int i = 0; i < input.Pools; i++)
             {
-               if (!pools.ContainsKey(item.Pool.Index))
-                {
-                    pools.Add(item.Pool.Index, item.Capacity);
-                }
-                else
-                {
-                    pools[item.Pool.Index] += item.Capacity;
-                }
+                pools.Add(new Pool(i, input.Rows));
             }
 
-            return pools.Min(_ => _.Value);
+            foreach (var item in output.Servers)
+            {
+                pools[item.PoolId].AddServer(item, item.Slot.RowId);
+            }
+
+            return pools.Min(_ => _.Capacity);
         }
 
         public override ProblemOutput GetResultFromReader(ProblemInput input, TextReader reader)

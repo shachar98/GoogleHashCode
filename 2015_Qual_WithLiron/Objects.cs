@@ -33,7 +33,9 @@ namespace _2015_Qual_WithLiron
             Servers.Add(server);
             Rows[row] += server.Capacity;
 
-            OrderdRows = Rows.OrderByDescending(_ => _).ToList();
+            OrderdRows = Rows.OrderBy(_ => _).ToList();
+
+            Capacity = OrderdRows.Sum() - OrderdRows.First();
         }
     }
 
@@ -47,7 +49,7 @@ namespace _2015_Qual_WithLiron
         public int Capacity { get; set; }
         public bool Assigned { get; set; }
         public Slot Slot { get; set; }
-        public Pool Pool { get; set; }
+        public int PoolId { get; set; }
 
     }
 

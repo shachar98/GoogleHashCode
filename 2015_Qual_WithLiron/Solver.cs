@@ -114,6 +114,7 @@ namespace _2015_Qual_WithLiron
                     {
                         server.Assigned = true;
                         server.Slot = new Slot() { RowId = row, SlotId = slot };
+                        server.PoolId = pool.Index;
                         pool.AddServer(server, row);
                         return true;
                     }

@@ -18,7 +18,7 @@ namespace _2015_Qual_WithLiron
                 var s = "x";
                 if (item.Assigned)
                 {
-                    s = $"Server {item.Index} placed in row {item.Slot.RowId} at slot {item.Slot.SlotId} and assigned to pool {item.Pool.Index}.";
+                    s = $"Server {item.Index} placed in row {item.Slot.RowId} at slot {item.Slot.SlotId} and assigned to pool {item.PoolId }.";
                 }
                 Console.WriteLine(s);
             }
@@ -34,7 +34,7 @@ namespace _2015_Qual_WithLiron
                     var s = "x";
                     if (item.Assigned)
                     {
-                        s = $"Server {item.Index} placed in row {item.Slot.RowId} at slot {item.Slot.SlotId} and assigned to pool {item.Pool.Index}.";
+                        s = $"Server {item.Index} placed in row {item.Slot.RowId} at slot {item.Slot.SlotId} and assigned to pool {item.PoolId}.";
                     }
                     writer.WriteLine(s);
                 }
