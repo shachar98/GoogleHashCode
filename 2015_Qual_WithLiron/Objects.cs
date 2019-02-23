@@ -16,6 +16,7 @@ namespace _2015_Qual_WithLiron
             m_Rows = numOfRows;
             Rows = new int[numOfRows];
             OrderdRows = Rows.ToList();
+            Servers = new List<Server>();
         }
 
         public int Capacity { get; set; }

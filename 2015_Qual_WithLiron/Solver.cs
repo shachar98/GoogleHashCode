@@ -60,8 +60,9 @@ namespace _2015_Qual_WithLiron
             foreach (var pool in m_Pools)
             {
                 Server server = notSizeOneServers[0];
-                if (TryAssignServerToRow(server, rowNum++, pool))
+                if (TryAssignServerToRow(server, rowNum % m_ProblemInput.Rows, pool))
                 {
+                    rowNum++;
                     notSizeOneServers.RemoveAt(0);
                     break;
                 }
