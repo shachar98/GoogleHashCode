@@ -23,7 +23,8 @@ namespace _2015_Qual_WithLiron
                 pools[item.PoolId].AddServer(item, item.Slot.RowId);
             }
 
-            return pools.Min(_ => _.Capacity);
+            var result =  pools.Min(_ => _.Capacity);
+            return result;
         }
 
         public override ProblemOutput GetResultFromReader(ProblemInput input, TextReader reader)
@@ -34,9 +35,12 @@ namespace _2015_Qual_WithLiron
             int j = 0;
             while (s != null)
             {
-                string[] splited = s.Split(' ');
-                output.Servers.Add(new Server(j) { Slot = new Slot() { RowId = int.Parse(splited[0]), SlotId = int.Parse(splited[1]) }, PoolId = int.Parse(splited[2]) });
-                
+                if (!s.Equals("x"))
+                {
+                    string[] splited = s.Split(' ');
+                    output.Servers.Add(new Server(j) { Slot = new Slot() { RowId = int.Parse(splited[0]), SlotId = int.Parse(splited[1]) }, PoolId = int.Parse(splited[2]) });
+                }
+
                 j++;
                 s = reader.ReadLine();
             }
