@@ -14,14 +14,18 @@ namespace _2015_Qual_WithLiron
         public Pool(int index, int numOfRows) : base(index)
         {
             m_Rows = numOfRows;
-            Rows = new int[numOfRows];
-            OrderdRows = Rows.ToList();
+            Rows = new SlotRow[numOfRows];
+            for (int i = 0; i < numOfRows; i++)
+            {
+                Rows[i] = new SlotRow(i) { Capacity = 0 };
+            }
+            OrderdRows = Rows.OrderBy(_ => _.Capacity).Select(_ => _.Index).ToList();
             Servers = new List<Server>();
         }
 
         public int Capacity { get; set; }
         public List<Server> Servers { get; set; }
-        public int[] Rows;
+        public SlotRow[] Rows;
         private List<int> OrderdRows;
 
         public List<int> GetOrderedRows()
@@ -32,11 +36,20 @@ namespace _2015_Qual_WithLiron
         public void AddServer(Server server, int row)
         {
             Servers.Add(server);
-            Rows[row] += server.Capacity;
+            Rows[row].Capacity += server.Capacity;
 
-            OrderdRows = Rows.OrderBy(_ => _).ToList();
+            OrderdRows = Rows.OrderBy(_ => _.Capacity).Select(_ => _.Index).ToList();
 
             Capacity = OrderdRows.Sum() - OrderdRows.First();
+        }
+
+        public class SlotRow : IndexedObject
+        {
+            public SlotRow(int index) : base(index)
+            {
+            }
+
+            public int Capacity { get; set; }
         }
     }
 
