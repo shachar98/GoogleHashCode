@@ -16,13 +16,11 @@ namespace _2015_Qual_WithLiron
             input.UnavailableSlotsNum = int.Parse(firstLineSplited[2]);
             input.Pools = int.Parse(firstLineSplited[3]);
             input.ServersNum = int.Parse(firstLineSplited[4]);
-            input.UnavailableSlots = new List<Slot>();
-            input.Servers = new List<Server>();
 
             for (int i = 0; i < input.UnavailableSlotsNum; i++)
             {
                 string[] coor = reader.ReadLine().Split(' ');
-                Slot slot = new Slot();
+                Slot slot = new Slot(i);
                 checked
                 {
                     slot.RowId = int.Parse(coor[0]);
@@ -35,7 +33,7 @@ namespace _2015_Qual_WithLiron
             for (var i = 0; i < input.ServersNum; i++)
             {
                 string[] serverStr = reader.ReadLine().Split(' ');
-                Server server = new Server();
+                Server server = new Server(i);
                 checked
                 {
                     server.Size = int.Parse(serverStr[0]);

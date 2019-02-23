@@ -10,7 +10,7 @@ namespace _2015_Qual_WithLiron
         public int Pools { get; set; }
         public int ServersNum { get; set; }
 
-        public List<Server> Servers { get; set; }
-        public List<Slot> UnavailableSlots { get; set; }
+        public List<Server> Servers { get; set; } = new List<Server>();
+        public List<Slot> UnavailableSlots { get; set; } = new List<Slot>();
     }
 }
