@@ -1,4 +1,5 @@
 ﻿using HashCodeCommon;
+using System.Collections.Generic;
 using System.IO;
 
 namespace _2015_Qual_WithLiron
@@ -8,12 +9,15 @@ namespace _2015_Qual_WithLiron
         protected override ProblemInput ParseFromStream(TextReader reader)
         {
             ProblemInput input = new ProblemInput();
+            
             string[] firstLineSplited = reader.ReadLine().Split(' ');
             input.Rows = int.Parse(firstLineSplited[0]);
             input.Slots = int.Parse(firstLineSplited[1]);
             input.UnavailableSlotsNum = int.Parse(firstLineSplited[2]);
             input.Pools = int.Parse(firstLineSplited[3]);
             input.ServersNum = int.Parse(firstLineSplited[4]);
+            input.UnavailableSlots = new List<Slot>();
+            input.Servers = new List<Server>();
 
             for (int i = 0; i < input.UnavailableSlotsNum; i++)
             {
