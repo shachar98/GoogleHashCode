@@ -15,7 +15,7 @@ namespace PizzaProblem
                 "Pizza", new Parser(), new Solver(), new Printer()); //, new Calcutaor());
             runner1.Run(Properties.Resources.exampleText, "charleston_road", 1, true);
 
-            ZipCreator.CreateCodeZip("2017_Final");
+            ZipCreator.CreateCodeZip("PizzaProblem");
         }
     }
 }

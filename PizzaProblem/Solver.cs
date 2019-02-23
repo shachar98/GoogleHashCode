@@ -9,9 +9,12 @@ namespace PizzaProblem
 {
     public class Solver : SolverBase<ProblemInput, ProblemOutput>
     {
+        private bool[,] m_FilledMatrix;
+
         protected override ProblemOutput Solve(ProblemInput input)
         {
             ProblemOutput output = new ProblemOutput() { Slices = new List<Slice>() };
+            m_FilledMatrix = new bool[input.Rows, input.Columns];
             Queue<MatrixCoordinate> queue = new Queue<MatrixCoordinate>();
             queue.Enqueue(new MatrixCoordinate(0, 0));
             while(queue.Count != 0)
@@ -20,7 +23,7 @@ namespace PizzaProblem
                 Slice slice =  GetSlice(coor, coor, input);
                 if (slice != null)
                 {
-                    output.Slices.Add(slice);
+                    AddSlice(output, slice);
                     queue.Enqueue(new MatrixCoordinate(slice.minRow, slice.maxCol));
                     queue.Enqueue(new MatrixCoordinate(slice.maxRow, slice.minCol));
                 }
@@ -38,6 +41,18 @@ namespace PizzaProblem
             return output;
         }
 
+        private void AddSlice(ProblemOutput output, Slice slice)
+        {
+            output.Slices.Add(slice);
+            for (int row = slice.minRow; row <= slice.maxRow; row++)
+            {
+                for (int col = slice.minCol; col <= slice.maxCol; col++)
+                {
+                    m_FilledMatrix[row, col] = true;
+                }
+            }
+        }
+
         private Slice GetSlice(MatrixCoordinate coor1, MatrixCoordinate coor2, ProblemInput input)
         {
             Queue<Slice> queue = new Queue<Slice>();
@@ -45,10 +60,10 @@ namespace PizzaProblem
             while (queue.Count != 0)
             {
                 Slice slice = queue.Dequeue();
-                if (IsSliceValid(slice, input))
+                SliceValidResult validRes = IsSliceValid(slice, input);
+                if (validRes == SliceValidResult.Valid)
                     return slice;
-
-                if (slice.Size > input.MaxSliceSize)
+                else if (validRes == SliceValidResult.NotValidStop)
                     return null;
 
                 if (slice.maxRow + 1 < input.Rows)
@@ -61,16 +76,19 @@ namespace PizzaProblem
             return null;
         }
 
-        private bool IsSliceValid(Slice slice, ProblemInput input)
+        private SliceValidResult IsSliceValid(Slice slice, ProblemInput input)
         {
             var tCount = 0;
             var mCount = 0;
-            if (slice.Size <= input.MaxSliceSize)
-            {
+            if (slice.Size > input.MaxSliceSize)
+                return SliceValidResult.NotValidStop;
                 for (int row = slice.minRow; row <= slice.maxRow && row < input.Rows; row++)
                 {
                     for (int col = slice.minCol; col < slice.maxCol && col < input.Columns; col++)
                     {
+                        if (m_FilledMatrix[row, col])
+                            return SliceValidResult.NotValidStop;
+
                         if(input.Cells[row, col] == Cell.M)
                         {
                             mCount++;
@@ -81,13 +99,18 @@ namespace PizzaProblem
                         }
                     }
                 }
-            }
-            else
-            {
-                return false;
-            }
 
-            return tCount >= input.MinIngredients && mCount >= input.MinIngredients;
+            if (tCount >= input.MinIngredients && mCount >= input.MinIngredients)
+                return SliceValidResult.Valid;
+
+            return SliceValidResult.NotValidContiue;
         }
+    }
+
+    public enum SliceValidResult
+    {
+        Valid,
+        NotValidContiue,
+        NotValidStop
     }
 }

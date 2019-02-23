@@ -59,10 +59,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\2017_Qualification\2017_Qualification.csproj">
-      <Project>{e1e3121d-03dc-44f0-8690-0cdea2c54b42}</Project>
-      <Name>2017_Qualification</Name>
-    </ProjectReference>
     <ProjectReference Include="..\HashCodeCommon\HashCodeCommon.csproj">
       <Project>{fe988848-3527-4fde-a140-65ce69e2f181}</Project>
       <Name>HashCodeCommon</Name>
