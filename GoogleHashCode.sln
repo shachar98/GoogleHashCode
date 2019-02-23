@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2018_Final", "2018_Final\20
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2015_Qual_WithLiron", "2015_Qual_WithLiron\2015_Qual_WithLiron.csproj", "{D9284193-E3C0-4022-8412-6D7BFAD4E72B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2019_Qualification", "2019_Qualification\2019_Qualification.csproj", "{0C7C9F5B-33F1-4943-92F7-BA99DCCF61D0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{D9284193-E3C0-4022-8412-6D7BFAD4E72B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D9284193-E3C0-4022-8412-6D7BFAD4E72B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D9284193-E3C0-4022-8412-6D7BFAD4E72B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0C7C9F5B-33F1-4943-92F7-BA99DCCF61D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C7C9F5B-33F1-4943-92F7-BA99DCCF61D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C7C9F5B-33F1-4943-92F7-BA99DCCF61D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C7C9F5B-33F1-4943-92F7-BA99DCCF61D0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{D9284193-E3C0-4022-8412-6D7BFAD4E72B}</ProjectGuid>
+    <ProjectGuid>{0C7C9F5B-33F1-4943-92F7-BA99DCCF61D0}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>_2015_Qual_WithLiron</RootNamespace>
-    <AssemblyName>2015_Qual_WithLiron</AssemblyName>
+    <RootNamespace>_2019_Qualification</RootNamespace>
+    <AssemblyName>2019_Qualification</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -44,14 +44,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Parser.cs" />
-    <Compile Include="Printer.cs" />
-    <Compile Include="ProblemInput.cs" />
-    <Compile Include="ProblemOutput.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ScoreCalculator.cs" />
-    <Compile Include="Solver.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
