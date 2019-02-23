@@ -12,7 +12,7 @@ namespace _2015_Qual_WithLiron
         static void Main(string[] args)
         {
             Runner<ProblemInput, ProblemOutput> runner1 = new Runner<ProblemInput, ProblemOutput>(
-                "2018", new Parser(), new Solver(), new Printer(), new Calculator());
+                "2015", new Parser(), new Solver(), new Printer(), new Calculator());
             // runner1.Run(Properties.Resources.a_example, "2015_example", 1, true);
 
             ZipCreator.CreateCodeZip("2015_example");
