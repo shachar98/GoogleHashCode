@@ -9,22 +9,31 @@ namespace _2015_Qual_WithLiron
 {
     public class Pool : IndexedObject
     {
+        private int m_Rows;
+
         public Pool(int index, int numOfRows) : base(index)
         {
+            m_Rows = numOfRows;
+            Rows = new int[numOfRows];
+            OrderdRows = Rows.ToList();
         }
 
         public int Capacity { get; set; }
         public List<Server> Servers { get; set; }
-        public List<int> Rows = new List<int>();
+        public int[] Rows;
+        private List<int> OrderdRows;
 
-        public IEnumerable<int> GetOrderedRows()
+        public List<int> GetOrderedRows()
         {
-            return null;
+            return OrderdRows;
         }
 
         public void AddServer(Server server, int row)
         {
             Servers.Add(server);
+            Rows[row] += server.Capacity;
+
+            OrderdRows = Rows.OrderByDescending(_ => _).ToList();
         }
     }
 

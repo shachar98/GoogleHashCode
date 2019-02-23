@@ -78,7 +78,7 @@ namespace _2015_Qual_WithLiron
 
                 foreach (var pool in pools)
                 {
-                    foreach (int row in pool.GetOrderedRows().Reverse())
+                    foreach (int row in pool.GetOrderedRows())
                     {
                         if (TryAssignServerToRow(server, row, pool))
                         {
