@@ -9,12 +9,13 @@ namespace _2015_Qual_WithLiron
 {
     public class Pool : IndexedObject
     {
-        public Pool(int index) : base(index)
+        public Pool(int index, int numOfRows) : base(index)
         {
         }
 
         public int Capacity { get; set; }
         public List<Server> Servers { get; set; }
+        public List<int> Rows = new List<int>();
 
         public IEnumerable<int> GetOrderedRows()
         {
@@ -23,6 +24,7 @@ namespace _2015_Qual_WithLiron
 
         public void AddServer(Server server, int row)
         {
+            Servers.Add(server);
         }
     }
 
@@ -40,12 +42,8 @@ namespace _2015_Qual_WithLiron
 
     }
 
-    public class Slot : IndexedObject
+    public class Slot
     {
-        public Slot(int index) : base(index)
-        {
-        }
-
         public int RowId { get; set; }
         public int SlotId { get; set; }
     }

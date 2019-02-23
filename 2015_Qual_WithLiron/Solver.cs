@@ -9,25 +9,44 @@ namespace _2015_Qual_WithLiron
 {
     public class Solver : SolverBase<ProblemInput, ProblemOutput>
     {
-        private ProblemOutput m_ProblemOutput = new ProblemOutput();
         private ProblemInput m_ProblemInput;
         private List<Pool> m_Pools = new List<Pool>();
+        private bool[,] m_Slots;
 
         protected override ProblemOutput Solve(ProblemInput input)
         {
             m_ProblemInput = input;
+            InitPools();
+            InitSlots();
+
             List<Server> orderedServers = OrderServersByCapacity().ToList();
-            List<Server> sizeOneServers = orderedServers.Where( _=> _.Size == 1).ToList();
-            List<Server> notSizeOneServers = orderedServers.Where( _=> _.Size != 1).ToList();
-            
+            List<Server> sizeOneServers = orderedServers.Where(_ => _.Size == 1).ToList();
+            List<Server> notSizeOneServers = orderedServers.Where(_ => _.Size != 1).ToList();
+
             List<Server> leftServers = AssignFirstRow(notSizeOneServers).ToList();
-            
+
             AssignServers(leftServers);
             AssignServers(sizeOneServers);
 
-            // m_ProblemOutput.Pools = m_Pools;
+            return new ProblemOutput() { Servers = input.Servers };
+        }
 
-            return null;
+        private void InitPools()
+        {
+            m_Pools = new List<Pool>();
+            for (int i = 0; i < m_ProblemInput.Pools; i++)
+            {
+                m_Pools.Add(new Pool(i, m_ProblemInput.Rows));
+            }
+        }
+
+        private void InitSlots()
+        {
+            m_Slots = new bool[m_ProblemInput.ServersNum, m_ProblemInput.Slots];
+            foreach (Slot currSlot in m_ProblemInput.UnavailableSlots)
+            {
+                m_Slots[currSlot.RowId, currSlot.SlotId] = true;
+            }
         }
 
         private IEnumerable<Server> OrderServersByCapacity()
@@ -80,7 +99,28 @@ namespace _2015_Qual_WithLiron
 
         private bool TryAssignServerToRow(Server server, int row, Pool pool)
         {
-            throw new NotImplementedException();
+            int freeSpace = 0;
+
+            for (int slot = 0; slot < m_ProblemInput.Slots; slot++)
+            {
+                if (m_Slots[row, slot])
+                {
+                    freeSpace = 0;
+                }
+                else
+                {
+                    freeSpace++;
+                    if (freeSpace == server.Capacity)
+                    {
+                        server.Assigned = true;
+                        server.Slot = new Slot() { RowId = row, SlotId = slot };
+                        pool.AddServer(server, row);
+                        return true;
+                    }
+                }
+            }
+
+            return false;
         }
     }
 }
