@@ -12,7 +12,7 @@ namespace _2015_Qual_WithLiron
     {
         public override void PrintToConsole(ProblemOutput result)
         {
-            result.Servers = result.Servers.OrderBy(_ => _.Index);
+            result.Servers = result.Servers.OrderBy(_ => _.Index).ToList();
             foreach (var item in result.Servers)
             {
                 var s = "x";
@@ -28,7 +28,7 @@ namespace _2015_Qual_WithLiron
         {
             using (var writer = new StreamWriter(outputPath))
             {
-                result.Servers = result.Servers.OrderBy(_ => _.Index);
+                result.Servers = result.Servers.OrderBy(_ => _.Index).ToList();
                 foreach (var item in result.Servers)
                 {
                     var s = "x";

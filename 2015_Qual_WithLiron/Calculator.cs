@@ -28,7 +28,20 @@ namespace _2015_Qual_WithLiron
 
         public override ProblemOutput GetResultFromReader(ProblemInput input, TextReader reader)
         {
-            throw new NotImplementedException();
+            ProblemOutput output = new ProblemOutput();
+            output.Servers = new List<Server>();
+            string s = reader.ReadLine();
+            int j = 0;
+            while (s != null)
+            {
+                string[] splited = s.Split(' ');
+                output.Servers.Add(new Server(j) { Slot = new Slot() { RowId = int.Parse(splited[0]), SlotId = int.Parse(splited[1]) }, PoolId = int.Parse(splited[2]) });
+                
+                j++;
+                s = reader.ReadLine();
+            }
+
+            return output;
         }
     }
 }
