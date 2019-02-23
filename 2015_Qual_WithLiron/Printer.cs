@@ -12,7 +12,16 @@ namespace _2015_Qual_WithLiron
     {
         public override void PrintToConsole(ProblemOutput result)
         {
-            throw new NotImplementedException();
+            result.Servers = result.Servers.OrderBy(_ => _.Index);
+            foreach (var item in result.Servers)
+            {
+                var s = "x";
+                if (item.Assigned)
+                {
+                    s = $"Server {item.Index} placed in row {item.Slot.RowId} at slot {item.Slot.SlotId} and assigned to pool {item.Pool.Index}.";
+                }
+                Console.WriteLine(s);
+            }
         }
 
         public override void PrintToFile(ProblemOutput result, string outputPath)
