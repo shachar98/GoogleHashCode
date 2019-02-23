@@ -64,7 +64,6 @@ namespace _2015_Qual_WithLiron
                 {
                     rowNum++;
                     notSizeOneServers.RemoveAt(0);
-                    break;
                 }
             }
 
