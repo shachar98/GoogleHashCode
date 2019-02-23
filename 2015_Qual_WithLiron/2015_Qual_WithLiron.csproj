@@ -75,7 +75,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Resources\dc.in.txt" />
+    <None Include="Resources\Input.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\example.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
