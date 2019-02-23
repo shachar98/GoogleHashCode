@@ -111,12 +111,18 @@ namespace _2015_Qual_WithLiron
                 else
                 {
                     freeSpace++;
-                    if (freeSpace == server.Capacity)
+                    if (freeSpace == server.Size)
                     {
                         server.Assigned = true;
-                        server.Slot = new Slot() { RowId = row, SlotId = slot };
+                        server.Slot = new Slot() { RowId = row, SlotId = slot - server.Size + 1 };
                         server.PoolId = pool.Index;
                         pool.AddServer(server, row);
+
+                        for (int fullSlot = server.Slot.SlotId; fullSlot <= slot; fullSlot++)
+                        {
+                            m_Slots[row, fullSlot] = true;
+                        }
+
                         return true;
                     }
                 }
