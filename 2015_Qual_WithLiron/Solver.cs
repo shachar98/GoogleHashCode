@@ -51,7 +51,7 @@ namespace _2015_Qual_WithLiron
 
         private IEnumerable<Server> OrderServersByCapacity()
         {
-            return m_ProblemInput.Servers.OrderBy(_ => ((double)_.Capacity) / _.Size);
+            return m_ProblemInput.Servers.OrderByDescending(_ => ((double)_.Capacity) / _.Size);
         }
 
         private IEnumerable<Server> AssignFirstRow(List<Server> notSizeOneServers)
