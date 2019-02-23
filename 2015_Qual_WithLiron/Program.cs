@@ -19,7 +19,7 @@ namespace _2015_Qual_WithLiron
                 "2015", new Parser(), new Solver(), new Printer(), new Calculator());
             runner2.Run(Properties.Resources.Input, "2015_input", 1, true);
 
-            ZipCreator.CreateCodeZip("2015_input");
+            ZipCreator.CreateCodeZip("2015");
 
             Console.Read();
         }

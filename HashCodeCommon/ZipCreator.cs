@@ -28,7 +28,7 @@ namespace HashCodeCommon
 
                 int indexSubString = relative.IndexOf("\\");
                 var projectDir = relative.Substring(indexSubString == -1 ? 0 : indexSubString + 1);
-                if (projectDir.StartsWith("obj") || projectDir.StartsWith("bin") || projectDir.StartsWith("Resources") || relative.StartsWith(tmpDirectoryName))
+                if (projectDir.StartsWith("obj") || projectDir.StartsWith("bin") || projectDir.StartsWith("Resources") || relative.StartsWith(tmpDirectoryName) || Path.GetExtension(codeFile) == "git")
                     continue;
                 var target = Path.Combine(tmpFolder, relative);
                 var dir = Path.GetDirectoryName(target);
@@ -37,7 +37,7 @@ namespace HashCodeCommon
                 File.Copy(codeFile, target);
             }
 
-            var targetZip = Path.Combine(outputDirectory, "Code.zip");
+            var targetZip = Path.Combine(solutionPath, "Output", outputDirectory, "Code.zip");
 
             if (File.Exists(targetZip))
                 File.Delete(targetZip);
