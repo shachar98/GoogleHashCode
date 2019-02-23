@@ -11,6 +11,7 @@ namespace _2015_Qual_WithLiron
     {
         private ProblemOutput m_ProblemOutput = new ProblemOutput();
         private ProblemInput m_ProblemInput;
+        private List<Pool> m_Pools = new List<Pool>();
 
         protected override ProblemOutput Solve(ProblemInput input)
         {
@@ -19,29 +20,42 @@ namespace _2015_Qual_WithLiron
             List<Server> sizeOneServers = orderedServers.Where( _=> _.Size == 1).ToList();
             List<Server> notSizeOneServers = orderedServers.Where( _=> _.Size != 1).ToList();
             
-            List<Server> leftServers = AssignFirstTwoRows(notSizeOneServers).ToList();
+            List<Server> leftServers = AssignFirstRow(notSizeOneServers).ToList();
             
             AssignServers(leftServers);
             AssignServers(sizeOneServers);
+
+            // m_ProblemOutput.Pools = m_Pools;
 
             return null;
         }
 
         private IEnumerable<Server> OrderServersByCapacity()
         {
-            throw new NotImplementedException();
+            return m_ProblemInput.Servers.OrderBy(_ => ((double)_.Capacity) / _.Size);
         }
 
-        private IEnumerable<Server> AssignFirstTwoRows(List<Server> notSizeOneServers)
+        private IEnumerable<Server> AssignFirstRow(List<Server> notSizeOneServers)
         {
-            throw new NotImplementedException();
+            int rowNum = 0;
+            foreach (var pool in m_Pools)
+            {
+                Server server = notSizeOneServers[0];
+                if (TryAssignServerToRow(server, rowNum++, pool))
+                {
+                    notSizeOneServers.RemoveAt(0);
+                    break;
+                }
+            }
+
+            return notSizeOneServers;
         }
 
         private void AssignServers(IEnumerable<Server> servers)
         {
             foreach (Server server in servers)
             {
-                IEnumerable<Pool> pools = GetOrderedPools().Reverse();
+                IEnumerable<Pool> pools = GetOrderedPools();
 
                 foreach (var pool in pools)
                 {
@@ -61,7 +75,7 @@ namespace _2015_Qual_WithLiron
 
         private IEnumerable<Pool> GetOrderedPools()
         {
-            throw new NotImplementedException();
+            return m_Pools.OrderBy(_ => _.Capacity);
         }
 
         private bool TryAssignServerToRow(Server server, int row, Pool pool)
