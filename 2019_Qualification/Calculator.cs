@@ -12,12 +12,15 @@ namespace _2019_Qualification
     {
         public override long Calculate(ProblemInput input, ProblemOutput output)
         {
+            // Calculate score
             throw new NotImplementedException();
         }
 
         public override ProblemOutput GetResultFromReader(ProblemInput input, TextReader reader)
         {
-            throw new NotImplementedException();
+            ProblemOutput output = new ProblemOutput();
+            // Read  output from reader
+            return output;
         }
     }
 }

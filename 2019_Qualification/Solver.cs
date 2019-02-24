@@ -11,6 +11,7 @@ namespace _2019_Qualification
     {
         protected override ProblemOutput Solve(ProblemInput input)
         {
+            // Solve the problem
             throw new NotImplementedException();
         }
     }
