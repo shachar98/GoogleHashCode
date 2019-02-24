@@ -20,13 +20,13 @@ namespace _2015_Qual_WithLiron
             InitSlots();
 
             List<Server> orderedServers = OrderServersByCapacity().ToList();
-            List<Server> sizeOneServers = orderedServers.Where(_ => _.Size == 1).ToList();
-            List<Server> notSizeOneServers = orderedServers.Where(_ => _.Size != 1).ToList();
+            // List<Server> sizeOneServers = orderedServers.Where(_ => _.Size == 1).ToList();
+            // List<Server> notSizeOneServers = orderedServers.Where(_ => _.Size != 1).ToList();
 
-            List<Server> leftServers = AssignFirstRow(notSizeOneServers).ToList();
+            List<Server> leftServers = AssignFirstRow(orderedServers).ToList();
 
             AssignServers(leftServers);
-            AssignServers(sizeOneServers);
+            // AssignServers(sizeOneServers);
 
             return new ProblemOutput() { Servers = input.Servers };
         }
