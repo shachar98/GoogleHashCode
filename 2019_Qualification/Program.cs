@@ -16,8 +16,8 @@ namespace _2019_Qualification
             runner1.Run(Properties.Resources.example, "2019_example", 1, true);
 
             //Runner<ProblemInput, ProblemOutput> runner2 = new Runner<ProblemInput, ProblemOutput>(
-            //    "2015", new Parser(), new Solver(), new Printer(), new Calculator());
-            //runner2.Run(Properties.Resources.Input, "2015_input", 1, true);
+            //    "2019", new Parser(), new Solver(), new Printer(), new Calculator());
+            //runner2.Run(Properties.Resources.Input, "2019_input", 1, true);
 
             ZipCreator.CreateCodeZip("2019");
 

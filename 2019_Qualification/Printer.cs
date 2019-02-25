@@ -1,6 +1,7 @@
 ﻿using HashCodeCommon;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,7 +17,10 @@ namespace _2019_Qualification
 
         public override void PrintToFile(ProblemOutput result, string outputPath)
         {
-            throw new NotImplementedException();
+            using (StreamWriter writer = new StreamWriter(outputPath))
+            {
+                throw new NotImplementedException();
+            }
         }
     }
 }
