@@ -48,7 +48,7 @@ namespace _2019_Qualification
 
             foreach (var item in horizontals)
             {
-                var slide = new Slide(0);
+                var slide = new Slide();
                 slide.AddPhoto(item);
                 slides.Add(slide);
             }
@@ -56,7 +56,7 @@ namespace _2019_Qualification
             var verticals = groups.First(_ => _.Key == Directions.Vertical).ToList();
             for (int i = 0; i < verticals.Count; i+=2)
             {
-                var slide = new Slide(0);
+                var slide = new Slide();
                 slide.AddPhoto(verticals[i]);
                 slide.AddPhoto(verticals[i+1]);
                 slides.Add(slide);
