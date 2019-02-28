@@ -26,6 +26,7 @@ namespace _2019_Qualification
 
         public void AddPhoto(Photo photo)
         {
+            Photos.Add(photo);
             Tags = Tags.Union(photo.Tags).ToList();
         }
     }

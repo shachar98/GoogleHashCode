@@ -15,7 +15,7 @@ namespace _2019_Qualification
             Console.WriteLine(result.Slideshow.Count);
             foreach (var item in result.Slideshow)
             {
-                var str = string.Join(" ", item.Photos);
+                var str = string.Join(" ", item.Photos.Select(_ => _.Index));
                 Console.WriteLine(str); 
             }
         }
@@ -27,7 +27,7 @@ namespace _2019_Qualification
                 writer.WriteLine(result.Slideshow.Count);
                 foreach (var item in result.Slideshow)
                 {
-                    var str = string.Join(" ", item.Photos);
+                    var str = string.Join(" ", item.Photos.Select(_=>_.Index));
                     writer.WriteLine(str);
                 }
             }
