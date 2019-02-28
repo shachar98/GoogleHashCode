@@ -46,22 +46,28 @@ namespace _2019_Qualification
         {
             List<Slide> slides = new List<Slide>();
             var groups = photos.GroupBy(_ => _.Direction);
-            var horizontals = groups.First(_ => _.Key == Directions.Horizontal);
+            var horizontals = groups.FirstOrDefault(_ => _.Key == Directions.Horizontal);
 
-            foreach (var item in horizontals)
+            if (horizontals != null)
             {
-                var slide = new Slide();
-                slide.AddPhoto(item);
-                slides.Add(slide);
+                foreach (var item in horizontals)
+                {
+                    var slide = new Slide();
+                    slide.AddPhoto(item);
+                    slides.Add(slide);
+                }
             }
 
-            var verticals = groups.First(_ => _.Key == Directions.Vertical).ToList();
-            for (int i = 0; i < verticals.Count; i+=2)
+            var verticals = groups.FirstOrDefault(_ => _.Key == Directions.Vertical).ToList();
+            if (verticals != null)
             {
-                var slide = new Slide();
-                slide.AddPhoto(verticals[i]);
-                slide.AddPhoto(verticals[i+1]);
-                slides.Add(slide);
+                for (int i = 0; i < verticals.Count; i += 2)
+                {
+                    var slide = new Slide();
+                    slide.AddPhoto(verticals[i]);
+                    slide.AddPhoto(verticals[i + 1]);
+                    slides.Add(slide);
+                }
             }
             return slides;
         }

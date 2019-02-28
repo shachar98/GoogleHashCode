@@ -27,6 +27,8 @@ namespace _2019_Qualification
                 newInput.Photos.Add(item);
             }
 
+            slides.AddRange(solver.Solve(newInput, this.NumbersGenerator, this.ProblemName).Slideshow);
+
             return new ProblemOutput() { Slideshow = slides };
         }
     }
