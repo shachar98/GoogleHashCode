@@ -12,12 +12,12 @@ namespace _2019_Qualification
     {
         public override void PrintToConsole(ProblemOutput result)
         {
-            Console.WriteLine(result.Slideshow.Count);
-            foreach (var item in result.Slideshow)
-            {
-                var str = string.Join(" ", item.Photos.Select(_ => _.Index));
-                Console.WriteLine(str); 
-            }
+            //Console.WriteLine(result.Slideshow.Count);
+            //foreach (var item in result.Slideshow)
+            //{
+            //    var str = string.Join(" ", item.Photos.Select(_ => _.Index));
+            //    Console.WriteLine(str); 
+            //}
         }
 
         public override void PrintToFile(ProblemOutput result, string outputPath)
