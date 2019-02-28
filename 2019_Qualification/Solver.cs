@@ -69,14 +69,37 @@ namespace _2019_Qualification
 
         private static void SplitVerticals2(List<Slide> slides, List<Photo> verticals)
         {
-            HashSet<Photo> usedVerticals = new HashSet<Photo>();
-            foreach (var item in verticals)
+            HashSet<Photo> usedVerticals = new HashSet<Photo>(verticals);
+            foreach (var item in verticals.ToList())
             {
+                usedVerticals.Remove(item);
                 if (usedVerticals.Contains(item))
                     continue;
 
+                var maxTags = -1;
+                Photo maxPhoto = null;
+                foreach (var item2 in usedVerticals)
+                {
+                    var x = item2.Tags.Union(item.Tags).Count();
+                    if (maxTags < x)
+                    {
+                        maxTags = x;
+                        maxPhoto = item2;
+                    }
+                }
+
+                usedVerticals.Remove(maxPhoto);
+
+                var slide = new Slide();
+                if (maxPhoto != null)
+                {
+                    slide.AddPhoto(item);
+                    slide.AddPhoto(maxPhoto);
+                    slides.Add(slide);
+                }
             }
         }
+
 
 
         private static void SplitVerticals(List<Slide> slides, List<Photo> verticals)
