@@ -12,7 +12,6 @@ namespace _2019_Qualification
     {
         public override long Calculate(ProblemInput input, ProblemOutput output)
         {
-            return 0;
             // Calculate score
             var result = 0;
 
@@ -36,7 +35,6 @@ namespace _2019_Qualification
 
         public override ProblemOutput GetResultFromReader(ProblemInput input, TextReader reader)
         {
-            return null;
             ProblemOutput output = new ProblemOutput();
 
             output.Slideshow = new List<Slide>();

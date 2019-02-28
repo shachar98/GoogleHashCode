@@ -21,7 +21,6 @@ namespace _2019_Qualification
             {
                 if (newInput.Photos.Count == splitSize)
                 {
-                    Console.WriteLine(count++);
                     slides.AddRange(solver.Solve(newInput, this.NumbersGenerator, this.ProblemName).Slideshow);
                     newInput = new ProblemInput();
                 }
