@@ -22,8 +22,8 @@ namespace _2019_Qualification
                 int diffTags1 = 0;
                 int diffTags2 = 0;
 
-                var tags1 = output.Slideshow[i].Photos.Select(_ => _.Tags);
-                var tags2 = output.Slideshow[i + 1].Photos.Select(_ => _.Tags);
+                var tags1 = output.Slideshow[i].Tags;
+                var tags2 = output.Slideshow[i + 1].Tags;
                 commonTags = tags1.Intersect(tags2).Count();
                 diffTags1 = tags1.Except(tags2).Count();
                 diffTags2 = tags2.Except(tags1).Count();
@@ -52,7 +52,10 @@ namespace _2019_Qualification
                     p.Add(input.Photos.FirstOrDefault(_ => _.Index == int.Parse(splited[i])));
                 }
 
-                slide.Photos = p;
+                foreach (var item in p)
+                {
+                    slide.AddPhoto(item);
+                }
                 output.Slideshow.Add(slide);
 
                 str = reader.ReadLine();
