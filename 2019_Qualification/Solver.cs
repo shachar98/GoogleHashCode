@@ -20,8 +20,7 @@ namespace _2019_Qualification
                 return new ProblemOutput() { Slideshow = allSlides};
 
             slides.Add(allSlides[0]);
-            slides.Add(allSlides[1]);
-            var leftPhotos = allSlides.Skip(2).ToList();
+            var leftPhotos = allSlides.Skip(1).ToList();
             while (leftPhotos.Count != 0)
             {
                 var lastSlide = slides[slides.Count - 1];
