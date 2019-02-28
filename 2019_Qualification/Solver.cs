@@ -158,12 +158,20 @@ namespace _2019_Qualification
 
         private int CalcScore(Slide first, Slide second)
         {
-            int together = first.Tags.Count(_ => second.Tags.Any(__ => __ == _));
+            int together = first.Tags.Count(_ => second.Tags.Contains(_));
+            // int together = first.Tags.Count(_ => second.Tags.Any(__ => __ == _));
             int onlySecond = second.Tags.Count - together;
             int onlyFirst = first.Tags.Count - together;
 
             return Math.Min(together, Math.Min(onlyFirst, onlySecond));
         }
+    }
+
+    public enum TagState
+    {
+        First,
+        Second,
+        Both
     }
 
     public class PhotoPair
