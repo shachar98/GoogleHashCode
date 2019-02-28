@@ -14,28 +14,54 @@ namespace _2019_Qualification
             // Sort the input for preformance
             // Split the input for preformance
 
-            List<Photo> photos = new List<Photo>(input.Photos.Count);
-            photos.Add(input.Photos[0]);
-            photos.Add(input.Photos[1]);
-            var leftPhotos = input.Photos.Skip(2).ToList();
+            List<Slide> slides = new List<Slide>(input.Photos.Count);
+            List<Slide> allSlides = CalcAllSlides(input.Photos);
+
+            slides.Add(allSlides[0]);
+            slides.Add(allSlides[1]);
+            var leftPhotos = allSlides.Skip(2).ToList();
             while (leftPhotos.Count != 0)
             {
-                var lastPhoto = photos[photos.Count - 1];
+                var lastSlide = slides[slides.Count - 1];
                 int max = -1;
-                Photo maxphoto = null;
+                Slide maxphoto = null;
                 foreach (var item in leftPhotos)
                 {
-                    int curr = CalcScore(lastPhoto, item);
+                    int curr = CalcScore(lastSlide, item);
                     if (curr > max)
                     {
                         max = curr;
                         maxphoto = item;
                     }
                 }
-                photos.Add(lastPhoto);
+                slides.Add(lastSlide);
             }
 
-            return new ProblemOutput() { };
+            return new ProblemOutput() { Slideshow = slides };
+        }
+
+        private List<Slide> CalcAllSlides(List<Photo> photos)
+        {
+            List<Slide> slides = new List<Slide>();
+            var groups = photos.GroupBy(_ => _.Direction);
+            var horizontals = groups.First(_ => _.Key == Directions.Horizontal);
+
+            foreach (var item in horizontals)
+            {
+                var slide = new Slide(0);
+                slide.AddPhoto(item);
+                slides.Add(slide);
+            }
+
+            var verticals = groups.First(_ => _.Key == Directions.Vertical).ToList();
+            for (int i = 0; i < verticals.Count; i+=2)
+            {
+                var slide = new Slide(0);
+                slide.AddPhoto(verticals[i]);
+                slide.AddPhoto(verticals[i+1]);
+                slides.Add(slide);
+            }
+            return slides;
         }
 
         /*
@@ -104,7 +130,7 @@ namespace _2019_Qualification
 
     */
 
-        private int CalcScore(Photo first, Photo second)
+        private int CalcScore(Slide first, Slide second)
         {
             int together = first.Tags.Count(_ => second.Tags.Any(__ => __ == _));
             int onlySecond = second.Tags.Count - together;

@@ -24,7 +24,14 @@ namespace _2019_Qualification
         {
         }
 
-        public List<Photo> Photos { get; set; }
+        public List<Photo> Photos { get; set; } = new List<Photo>();
+
+        public List<string> Tags { get; set; } = new List<string>();
+
+        public void AddPhoto(Photo photo)
+        {
+            Tags = Tags.Union(photo.Tags).ToList();
+        }
     }
 
     public enum Directions
