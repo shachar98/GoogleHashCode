@@ -62,15 +62,32 @@ namespace _2019_Qualification
             var verticals = groups.FirstOrDefault(_ => _.Key == Directions.Vertical)?.ToList();
             if (verticals != null)
             {
-                for (int i = 0; i < verticals.Count - 1; i += 2)
-                {
-                    var slide = new Slide();
-                    slide.AddPhoto(verticals[i]);
-                    slide.AddPhoto(verticals[i + 1]);
-                    slides.Add(slide);
-                }
+                SplitVerticals(slides, verticals);
             }
             return slides;
+        }
+
+        private static void SplitVerticals2(List<Slide> slides, List<Photo> verticals)
+        {
+            HashSet<Photo> usedVerticals = new HashSet<Photo>();
+            foreach (var item in verticals)
+            {
+                if (usedVerticals.Contains(item))
+                    continue;
+
+            }
+        }
+
+
+        private static void SplitVerticals(List<Slide> slides, List<Photo> verticals)
+        {
+            for (int i = 0; i < verticals.Count - 1; i += 2)
+            {
+                var slide = new Slide();
+                slide.AddPhoto(verticals[i]);
+                slide.AddPhoto(verticals[i + 1]);
+                slides.Add(slide);
+            }
         }
 
         /*
