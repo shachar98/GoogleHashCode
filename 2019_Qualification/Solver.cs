@@ -63,12 +63,12 @@ namespace _2019_Qualification
             var verticals = groups.FirstOrDefault(_ => _.Key == Directions.Vertical)?.ToList();
             if (verticals != null)
             {
-                SplitVerticals2(slides, verticals);
+                SplitVerticals(slides, verticals);
             }
             return slides;
         }
 
-        private static void SplitVerticals2(List<Slide> slides, List<Photo> verticals)
+        private static void SplitVerticals(List<Slide> slides, List<Photo> verticals)
         {
             HashSet<Photo> usedVerticals = new HashSet<Photo>(verticals);
             foreach (var item in verticals.ToList())
@@ -104,12 +104,20 @@ namespace _2019_Qualification
         
         private int CalcScore(Slide first, Slide second)
         {
-            int together = first.Tags.Count(_ => second.Tags.Any(__ => __ == _));
+            int together = first.Tags.Count(_ => second.Tags.Contains(_));
+            // int together = first.Tags.Count(_ => second.Tags.Any(__ => __ == _));
             int onlySecond = second.Tags.Count - together;
             int onlyFirst = first.Tags.Count - together;
 
             return Math.Min(together, Math.Min(onlyFirst, onlySecond));
         }
+    }
+
+    public enum TagState
+    {
+        First,
+        Second,
+        Both
     }
 
     public class PhotoPair

@@ -22,12 +22,15 @@ namespace _2019_Qualification
     {
         public List<Photo> Photos { get; set; } = new List<Photo>();
 
-        public List<string> Tags { get; set; } = new List<string>();
+        public HashSet<string> Tags { get; set; } = new HashSet<string>();
 
         public void AddPhoto(Photo photo)
         {
             Photos.Add(photo);
-            Tags = Tags.Union(photo.Tags).ToList();
+            foreach (var item in photo.Tags)
+            {
+                Tags.Add(item);
+            }
         }
     }
 
