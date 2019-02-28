@@ -58,7 +58,7 @@ namespace _2019_Qualification
                 }
             }
 
-            var verticals = groups.FirstOrDefault(_ => _.Key == Directions.Vertical).ToList();
+            var verticals = groups.FirstOrDefault(_ => _.Key == Directions.Vertical)?.ToList();
             if (verticals != null)
             {
                 for (int i = 0; i < verticals.Count; i += 2)
