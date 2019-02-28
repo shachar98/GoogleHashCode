@@ -14,27 +14,67 @@ namespace _2019_Qualification
             // Sort the input for preformance
             // Split the input for preformance
 
-            SortedDictionary<int, List<PhotoPair>> pairsRank = CreateAllPairs(input);
-
-            List<List<PhotoPair>> allPairsConnections = new List<List<PhotoPair>>();
-            while (true)
+            List<Photo> photos = new List<Photo>(input.Photos.Count);
+            photos.Add(input.Photos[0]);
+            photos.Add(input.Photos[1]);
+            var leftPhotos = input.Photos.Skip(2).ToList();
+            while (leftPhotos.Count != 0)
             {
-                var first = pairsRank.First();
-
-                foreach (var item in first.Value)
+                var lastPhoto = photos[photos.Count - 1];
+                int max = -1;
+                Photo maxphoto = null;
+                foreach (var item in leftPhotos)
                 {
-                    AddPair(allPairsConnections, item);
+                    int curr = CalcScore(lastPhoto, item);
+                    if (curr > max)
+                    {
+                        max = curr;
+                        maxphoto = item;
+                    }
                 }
-
-                pairsRank.Remove(first.Key);
+                photos.Add(lastPhoto);
             }
 
-            // Solve the problem
-            throw new NotImplementedException();
+            return new ProblemOutput() { };
         }
 
+        /*
         private void AddPair(List<List<PhotoPair>> allPairsConnections, PhotoPair pairToAdd)
         {
+            if (pairToAdd.First.TimesAdded == 2 || pairToAdd.Second.TimesAdded == 2)
+                return;
+            else if (pairToAdd.First.TimesAdded == 0 && pairToAdd.Second.TimesAdded == 0)
+            {
+                pairToAdd.First.TimesAdded++;
+                pairToAdd.Second.TimesAdded++;
+                return;
+            }
+            else if (pairToAdd.Second.TimesAdded == 1 && pairToAdd.First.TimesAdded == 1)
+            {
+                var firstList = allPairsConnections.FirstOrDefault(_ => _.Any(__ => __.First.Equals(pairToAdd.First) || __.First.Equals(pairToAdd.Second)));
+                var secondList = allPairsConnections.FirstOrDefault(_ => _.Any(__ => __.Second.Equals(pairToAdd.First) || __.Second.Equals(pairToAdd.Second)));
+                if (firstList == secondList)
+                    return;
+
+                allPairsConnections.Remove(secondList);
+                firstList.AddRange(secondList);
+                firstList.Add(pairToAdd);
+                pairToAdd.First.TimesAdded++;
+                pairToAdd.Second.TimesAdded++;
+                return;
+                // TODO
+            }
+            else if (pairToAdd.Second.TimesAdded == 1)
+            {
+                var temp = pairToAdd.First;
+                pairToAdd.First = pairToAdd.Second;
+                pairToAdd.Second = temp;
+            }
+
+            var firstList1 = allPairsConnections.FirstOrDefault(_ => _.Any(__ => __.First.Equals(pairToAdd.First) || __.First.Equals(pairToAdd.Second)));
+            firstList1.Add(pairToAdd);
+            pairToAdd.First.TimesAdded++;
+            pairToAdd.Second.TimesAdded++;
         }
 
         private SortedDictionary<int, List<PhotoPair>> CreateAllPairs(ProblemInput input)
@@ -61,6 +101,8 @@ namespace _2019_Qualification
 
             return pairsRank;
         }
+
+    */
 
         private int CalcScore(Photo first, Photo second)
         {
