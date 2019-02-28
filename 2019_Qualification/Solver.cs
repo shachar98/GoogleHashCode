@@ -54,6 +54,7 @@ namespace _2019_Qualification
                 foreach (var item in horizontals)
                 {
                     var slide = new Slide();
+                    
                     slide.AddPhoto(item);
                     slides.Add(slide);
                 }
@@ -73,7 +74,7 @@ namespace _2019_Qualification
             foreach (var item in verticals.ToList())
             {
                 usedVerticals.Remove(item);
-                if (usedVerticals.Contains(item))
+                if (!usedVerticals.Contains(item))
                     continue;
 
                 var maxTags = -1;
@@ -99,17 +100,7 @@ namespace _2019_Qualification
                 }
             }
         }
-
-        private static void SplitVerticals(List<Slide> slides, List<Photo> verticals)
-        {
-            for (int i = 0; i < verticals.Count - 1; i += 2)
-            {
-                var slide = new Slide();
-                slide.AddPhoto(verticals[i]);
-                slide.AddPhoto(verticals[i + 1]);
-                slides.Add(slide);
-            }
-        }
+       
         
         private int CalcScore(Slide first, Slide second)
         {
