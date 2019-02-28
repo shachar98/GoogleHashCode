@@ -8,5 +8,6 @@ namespace _2019_Qualification
 {
     public class ProblemOutput
     {
+        public List<Slide> Slideshow { get; set; }
     }
 }

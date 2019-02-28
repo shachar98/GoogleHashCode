@@ -29,7 +29,7 @@ namespace _2019_Qualification
                 }
                 else
                 {
-                    photo.Direction = Directions.Veical;
+                    photo.Direction = Directions.Vertical;
                 }
                 
                 photo.Tags = photoStr.ToList().Skip(2).OrderBy(_ => _).ToList();
