@@ -73,6 +73,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Solver.cs" />
+    <Compile Include="SolverSplitter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

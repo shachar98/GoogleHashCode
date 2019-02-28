@@ -34,7 +34,9 @@ namespace _2019_Qualification
                         maxphoto = item;
                     }
                 }
-                slides.Add(lastSlide);
+
+                leftPhotos.Remove(maxphoto);
+                slides.Add(maxphoto);
             }
 
             return new ProblemOutput() { Slideshow = slides };
