@@ -15,14 +15,14 @@ namespace _2019_Qualification
 
         public int TimesAdded { get; set; } = 0;
         public Directions Direction { get; set; }
-        public List<string> Tags { get; set; }
+        public List<int> Tags { get; set; }
     }
 
     public class Slide
     {
         public List<Photo> Photos { get; set; } = new List<Photo>();
 
-        public HashSet<string> Tags { get; set; } = new HashSet<string>();
+        public HashSet<int> Tags { get; set; } = new HashSet<int>();
 
         public void AddPhoto(Photo photo)
         {

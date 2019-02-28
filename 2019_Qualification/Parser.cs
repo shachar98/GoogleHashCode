@@ -32,7 +32,7 @@ namespace _2019_Qualification
                     photo.Direction = Directions.Vertical;
                 }
                 
-                photo.Tags = photoStr.ToList().Skip(2).OrderBy(_ => _).ToList();
+                photo.Tags = photoStr.ToList().Skip(2).OrderBy(_ => _).Select(_ => _.GetHashCode()).ToList();
 
                 input.Photos.Add(photo);
             }
