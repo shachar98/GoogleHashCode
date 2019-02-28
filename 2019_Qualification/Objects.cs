@@ -18,12 +18,8 @@ namespace _2019_Qualification
         public List<string> Tags { get; set; }
     }
 
-    public class Slide : IndexedObject
+    public class Slide
     {
-        public Slide(int index) : base(index)
-        {
-        }
-
         public List<Photo> Photos { get; set; } = new List<Photo>();
 
         public List<string> Tags { get; set; } = new List<string>();

@@ -12,7 +12,6 @@ namespace _2019_Qualification
     {
         public override void PrintToConsole(ProblemOutput result)
         {
-            result.Slideshow = result.Slideshow.OrderBy(_ => _.Index).ToList();
             Console.WriteLine(result.Slideshow.Count);
             foreach (var item in result.Slideshow)
             {
@@ -25,7 +24,6 @@ namespace _2019_Qualification
         {
             using (StreamWriter writer = new StreamWriter(outputPath))
             {
-                result.Slideshow = result.Slideshow.OrderBy(_ => _.Index).ToList();
                 writer.WriteLine(result.Slideshow.Count);
                 foreach (var item in result.Slideshow)
                 {
