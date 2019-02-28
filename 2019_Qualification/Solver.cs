@@ -16,6 +16,8 @@ namespace _2019_Qualification
 
             List<Slide> slides = new List<Slide>(input.Photos.Count);
             List<Slide> allSlides = CalcAllSlides(input.Photos);
+            if (allSlides.Count < 2)
+                return new ProblemOutput() { Slideshow = allSlides};
 
             slides.Add(allSlides[0]);
             slides.Add(allSlides[1]);
@@ -61,7 +63,7 @@ namespace _2019_Qualification
             var verticals = groups.FirstOrDefault(_ => _.Key == Directions.Vertical)?.ToList();
             if (verticals != null)
             {
-                for (int i = 0; i < verticals.Count; i += 2)
+                for (int i = 0; i < verticals.Count - 1; i += 2)
                 {
                     var slide = new Slide();
                     slide.AddPhoto(verticals[i]);
