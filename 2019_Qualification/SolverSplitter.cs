@@ -12,7 +12,7 @@ namespace _2019_Qualification
         protected override ProblemOutput Solve(ProblemInput input)
         {
             Solver solver = new Solver();
-            int parts = 500;
+            int parts = 50;
             var photos = input.Photos;
             photos = photos.OrderBy(_ => _.Tags.Count).ToList();
             int splitSize = photos.Count / parts;

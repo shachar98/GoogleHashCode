@@ -62,41 +62,22 @@ namespace _2019_Qualification
             var verticals = groups.FirstOrDefault(_ => _.Key == Directions.Vertical)?.ToList();
             if (verticals != null)
             {
-                SplitVerticals2(slides, verticals);
+                SplitVerticals(slides, verticals);
             }
             return slides;
         }
 
         private static void SplitVerticals2(List<Slide> slides, List<Photo> verticals)
         {
-            List<Photo> usedVerticals = new List<Photo>();
+            HashSet<Photo> usedVerticals = new HashSet<Photo>();
             foreach (var item in verticals)
             {
                 if (usedVerticals.Contains(item))
                     continue;
 
-                usedVerticals.Add(item);
-                var maxTags = -1;
-                Photo maxPhoto = null;
-                var coll = verticals.Except(usedVerticals);
-                foreach (var item2 in coll)
-                {
-                    var x = item2.Tags.Union(item.Tags).Count();
-                    if (maxTags < x)
-                    {
-                        maxTags = x;
-                        maxPhoto = item2;
-                    }
-                }
-
-                usedVerticals.Add(maxPhoto);
-
-                var slide = new Slide();
-                slide.AddPhoto(item);
-                slide.AddPhoto(maxPhoto);
-                slides.Add(slide);
             }
         }
+
 
         private static void SplitVerticals(List<Slide> slides, List<Photo> verticals)
         {
@@ -108,7 +89,73 @@ namespace _2019_Qualification
                 slides.Add(slide);
             }
         }
-        
+
+        /*
+        private void AddPair(List<List<PhotoPair>> allPairsConnections, PhotoPair pairToAdd)
+        {
+            if (pairToAdd.First.TimesAdded == 2 || pairToAdd.Second.TimesAdded == 2)
+                return;
+            else if (pairToAdd.First.TimesAdded == 0 && pairToAdd.Second.TimesAdded == 0)
+            {
+                pairToAdd.First.TimesAdded++;
+                pairToAdd.Second.TimesAdded++;
+                return;
+            }
+            else if (pairToAdd.Second.TimesAdded == 1 && pairToAdd.First.TimesAdded == 1)
+            {
+                var firstList = allPairsConnections.FirstOrDefault(_ => _.Any(__ => __.First.Equals(pairToAdd.First) || __.First.Equals(pairToAdd.Second)));
+                var secondList = allPairsConnections.FirstOrDefault(_ => _.Any(__ => __.Second.Equals(pairToAdd.First) || __.Second.Equals(pairToAdd.Second)));
+                if (firstList == secondList)
+                    return;
+
+                allPairsConnections.Remove(secondList);
+                firstList.AddRange(secondList);
+                firstList.Add(pairToAdd);
+                pairToAdd.First.TimesAdded++;
+                pairToAdd.Second.TimesAdded++;
+                return;
+                // TODO
+            }
+            else if (pairToAdd.Second.TimesAdded == 1)
+            {
+                var temp = pairToAdd.First;
+                pairToAdd.First = pairToAdd.Second;
+                pairToAdd.Second = temp;
+            }
+
+            var firstList1 = allPairsConnections.FirstOrDefault(_ => _.Any(__ => __.First.Equals(pairToAdd.First) || __.First.Equals(pairToAdd.Second)));
+            firstList1.Add(pairToAdd);
+            pairToAdd.First.TimesAdded++;
+            pairToAdd.Second.TimesAdded++;
+        }
+
+        private SortedDictionary<int, List<PhotoPair>> CreateAllPairs(ProblemInput input)
+        {
+            // TODO: Handle Verticals
+
+            SortedDictionary<int, List<PhotoPair>> pairsRank = new SortedDictionary<int, List<PhotoPair>>();
+            foreach (var curr in input.Photos)
+            {
+                foreach (var curr2 in input.Photos)
+                {
+                    var score = CalcScore(curr, curr2);
+                    var photoPair = new PhotoPair() { Second = curr, First = curr2 };
+                    if (pairsRank.TryGetValue(score, out List<PhotoPair> currList))
+                    {
+                        currList.Add(photoPair);
+                    }
+                    else
+                    {
+                        pairsRank.Add(score, new List<PhotoPair>() { photoPair });
+                    }
+                }
+            }
+
+            return pairsRank;
+        }
+
+    */
+
         private int CalcScore(Slide first, Slide second)
         {
             int together = first.Tags.Count(_ => second.Tags.Contains(_));
