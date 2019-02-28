@@ -104,5 +104,20 @@
   <ItemGroup>
     <None Include="Resources\example.txt" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\a_example.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\c_memorable_moments.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\d_pet_pictures.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\e_shiny_selfies.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\b_lovely_landscapes.txt" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

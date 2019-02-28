@@ -20,6 +20,6 @@ namespace _2019_Qualification
     public enum Directions
     {
         Horizontal,
-        Veical
+        Vertical
     }
 }
