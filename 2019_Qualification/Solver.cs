@@ -63,6 +63,8 @@ namespace _2019_Qualification
                     return item;
                 }
 
+                curr = curr * 100000 - item.Tags.Count;
+
                 if (curr > max)
                 {
                     max = curr;
@@ -124,11 +126,6 @@ namespace _2019_Qualification
                             both++;
                     }
 
-                    if (both == 0)
-                    {
-                        chosenPhoto = item2;
-                        break;
-                    }
                     if (minTagsInBoth > both)
                     {
                         minTagsInBoth = both;
@@ -158,6 +155,7 @@ namespace _2019_Qualification
         }
        
         
+
         private int CalcScore(Slide first, Slide second)
         {
             int together = 0;
@@ -170,16 +168,7 @@ namespace _2019_Qualification
             int onlySecond = second.Tags.Count - together;
             int onlyFirst = first.Tags.Count - together;
 
-
-            int diff = Math.Min(together, Math.Min(onlyFirst, onlySecond));
-            return diff;
-            // return diff * 100000 - second.Tags.Count;
-
-            //double mid = ((double)onlySecond + onlyFirst + together) / 3;
-            //double distFromBest = (mid - onlySecond) * (mid - onlySecond) +
-            //                      (mid - onlyFirst) * (mid - onlyFirst) +
-            //                      (mid - together) * (mid - together);
-            // return distFromBest;
+            return Math.Min(together, Math.Min(onlyFirst, onlySecond));
         }
     }
 
