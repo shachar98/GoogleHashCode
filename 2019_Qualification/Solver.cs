@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace _2019_Qualification
@@ -27,7 +28,7 @@ namespace _2019_Qualification
             while (leftPhotos.Count != 0)
             {
                 if (leftPhotos.Count % 1000 == 0)
-                    Console.WriteLine(leftPhotos.Count + ", " + this.ProblemName + ", " + DateTime.Now);
+                    Console.WriteLine(leftPhotos.Count + ", " + this.ProblemName + ", solve, " + DateTime.Now);
                 var lastSlide = slides[slides.Count - 1];
 
                 foreach (var item in lastSlide.Tags)
@@ -54,13 +55,14 @@ namespace _2019_Qualification
             Slide maxphoto = null;
             double max = -10000;
 
-            foreach (var item in leftPhotos)
+            Parallel.ForEach(leftPhotos, new ParallelOptions() { MaxDegreeOfParallelism = 5 },  (item, state) =>
             {
                 int curr = CalcScore(lastSlide, item);
 
-                if (item.Tags.Count == lastSlide.Tags.Count && curr == item.Tags.Count / 2 )
+                if (item.Tags.Count == lastSlide.Tags.Count && curr == item.Tags.Count / 2)
                 {
-                    return item;
+                    state.Break();
+                    maxphoto = item;
                 }
 
                 curr = curr * 100000 - item.Tags.Count;
@@ -70,7 +72,7 @@ namespace _2019_Qualification
                     max = curr;
                     maxphoto = item;
                 }
-            }
+            });
 
             return maxphoto;
         }
@@ -108,6 +110,9 @@ namespace _2019_Qualification
                 if (!remainigVerticals.Contains(item))
                     continue;
 
+                if (remainigVerticals.Count % 1000 == 0 || remainigVerticals.Count % 1000 == 1)
+                    Console.WriteLine(remainigVerticals.Count + ", " + this.ProblemName + ", verticals, " + DateTime.Now);
+
                 remainigVerticals.Remove(item);
                 
                 var minTagsInBoth = 100000;
@@ -117,14 +122,9 @@ namespace _2019_Qualification
                     m_Tags[item3] = true;
                 }
 
-                foreach (var item2 in remainigVerticals)
+                Parallel.ForEach(remainigVerticals, new ParallelOptions() { MaxDegreeOfParallelism = 5 }, item2 =>
                 {
-                    var both = 0;
-                    foreach (var item4 in item2.Tags)
-                    {
-                        if (m_Tags[item4])
-                            both++;
-                    }
+                    var both = item2.Tags.Count(_ => m_Tags[_]);
 
                     if (minTagsInBoth > both)
                     {
@@ -135,7 +135,7 @@ namespace _2019_Qualification
                     {
                         chosenPhoto = item2;
                     }
-                }
+                });
 
                 foreach (var item3 in item.Tags)
                 {
@@ -158,12 +158,7 @@ namespace _2019_Qualification
 
         private int CalcScore(Slide first, Slide second)
         {
-            int together = 0;
-            foreach (var item in second.Tags)
-            {
-                if (m_Tags[item])
-                    together++;
-            }
+            var together = second.Tags.Count(_ => m_Tags[_]);
 
             int onlySecond = second.Tags.Count - together;
             int onlyFirst = first.Tags.Count - together;
