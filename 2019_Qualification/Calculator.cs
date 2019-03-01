@@ -47,7 +47,7 @@ namespace _2019_Qualification
                 var p = new List<Photo>();
                 for (int i = 0; i < splited.Length; i++)
                 {
-                    p.Add(input.Photos[i]);
+                    p.Add(input.Photos[int.Parse(splited[i])]);
                 }
 
                 foreach (var item in p)

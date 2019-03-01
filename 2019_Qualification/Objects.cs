@@ -24,13 +24,27 @@ namespace _2019_Qualification
 
         public HashSet<int> Tags { get; set; } = new HashSet<int>();
 
+        int index = 0;
+
         public void AddPhoto(Photo photo)
         {
+            index += photo.Index * 137;
             Photos.Add(photo);
             foreach (var item in photo.Tags)
             {
                 Tags.Add(item);
             }
+        }
+
+        public override int GetHashCode()
+        {
+            return index;
+        }
+
+        public override bool Equals(object obj)
+        {
+            Slide other = obj as Slide;
+            return Photos.Count == other.Photos.Count && Photos.Intersect(other.Photos).Count() == Photos.Count;
         }
     }
 

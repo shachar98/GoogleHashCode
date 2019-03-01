@@ -9,31 +9,37 @@ namespace _2019_Qualification
 {
     public class Solver : SolverBase<ProblemInput, ProblemOutput>
     {
+        private bool[] m_Tags;
         protected override ProblemOutput Solve(ProblemInput input)
         {
             // Sort the input for preformance
             // Split the input for preformance
 
+            m_Tags = new bool[input.NumOfTags];
+
             List<Slide> slides = new List<Slide>(input.Photos.Count);
-            List<Slide> allSlides = CalcAllSlides(input.Photos);
+            List<Slide> allSlides = CalcAllSlides(input.Photos).OrderBy(_ => _.Tags.Count).ToList();
             if (allSlides.Count < 2)
                 return new ProblemOutput() { Slideshow = allSlides};
 
             slides.Add(allSlides[0]);
-            var leftPhotos = allSlides.Skip(1).ToList();
+            var leftPhotos = new HashSet<Slide>(allSlides.Skip(1));
             while (leftPhotos.Count != 0)
             {
+                if (leftPhotos.Count % 1000 == 0)
+                    Console.WriteLine(leftPhotos.Count + ", " + this.ProblemName + ", " + DateTime.Now);
                 var lastSlide = slides[slides.Count - 1];
-                int max = -1;
-                Slide maxphoto = null;
-                foreach (var item in leftPhotos)
+
+                foreach (var item in lastSlide.Tags)
                 {
-                    int curr = CalcScore(lastSlide, item);
-                    if (curr > max)
-                    {
-                        max = curr;
-                        maxphoto = item;
-                    }
+                    m_Tags[item] = true;
+                }
+
+                Slide maxphoto = GetMaxPhoto(leftPhotos, lastSlide);
+
+                foreach (var item in lastSlide.Tags)
+                {
+                    m_Tags[item] = false;
                 }
 
                 leftPhotos.Remove(maxphoto);
@@ -41,6 +47,30 @@ namespace _2019_Qualification
             }
 
             return new ProblemOutput() { Slideshow = slides };
+        }
+
+        private Slide GetMaxPhoto(ICollection<Slide> leftPhotos, Slide lastSlide)
+        {
+            Slide maxphoto = null;
+            double max = -10000;
+
+            foreach (var item in leftPhotos)
+            {
+                int curr = CalcScore(lastSlide, item);
+
+                if (item.Tags.Count == lastSlide.Tags.Count && curr == item.Tags.Count / 2 )
+                {
+                    return item;
+                }
+
+                if (curr > max)
+                {
+                    max = curr;
+                    maxphoto = item;
+                }
+            }
+
+            return maxphoto;
         }
 
         private List<Slide> CalcAllSlides(List<Photo> photos)
@@ -68,34 +98,60 @@ namespace _2019_Qualification
             return slides;
         }
 
-        private static void SplitVerticals(List<Slide> slides, List<Photo> verticals)
+        private void SplitVerticals(List<Slide> slides, List<Photo> verticals)
         {
-            HashSet<Photo> usedVerticals = new HashSet<Photo>(verticals);
-            foreach (var item in verticals.ToList())
+            HashSet<Photo> remainigVerticals = new HashSet<Photo>(verticals);
+            foreach (var item in verticals.OrderByDescending(_ => _.Tags.Count).ToList())
             {
-                usedVerticals.Remove(item);
-                if (!usedVerticals.Contains(item))
+                if (!remainigVerticals.Contains(item))
                     continue;
 
-                var maxTags = -1;
-                Photo maxPhoto = null;
-                foreach (var item2 in usedVerticals)
+                remainigVerticals.Remove(item);
+                
+                var minTagsInBoth = 100000;
+                Photo chosenPhoto = null;
+                foreach (var item3 in item.Tags)
                 {
-                    var x = item2.Tags.Union(item.Tags).Count();
-                    if (maxTags < x)
+                    m_Tags[item3] = true;
+                }
+
+                foreach (var item2 in remainigVerticals)
+                {
+                    var both = 0;
+                    foreach (var item4 in item2.Tags)
                     {
-                        maxTags = x;
-                        maxPhoto = item2;
+                        if (m_Tags[item4])
+                            both++;
+                    }
+
+                    if (both == 0)
+                    {
+                        chosenPhoto = item2;
+                        break;
+                    }
+                    if (minTagsInBoth > both)
+                    {
+                        minTagsInBoth = both;
+                        chosenPhoto = item2;
+                    }
+                    else if (minTagsInBoth == both && item2.Tags.Count > chosenPhoto.Tags.Count)
+                    {
+                        chosenPhoto = item2;
                     }
                 }
 
-                usedVerticals.Remove(maxPhoto);
+                foreach (var item3 in item.Tags)
+                {
+                    m_Tags[item3] = false;
+                }
+
+                remainigVerticals.Remove(chosenPhoto);
 
                 var slide = new Slide();
-                if (maxPhoto != null)
+                if (chosenPhoto != null)
                 {
                     slide.AddPhoto(item);
-                    slide.AddPhoto(maxPhoto);
+                    slide.AddPhoto(chosenPhoto);
                     slides.Add(slide);
                 }
             }
@@ -104,12 +160,26 @@ namespace _2019_Qualification
         
         private int CalcScore(Slide first, Slide second)
         {
-            int together = first.Tags.Count(_ => second.Tags.Contains(_));
-            // int together = first.Tags.Count(_ => second.Tags.Any(__ => __ == _));
+            int together = 0;
+            foreach (var item in second.Tags)
+            {
+                if (m_Tags[item])
+                    together++;
+            }
+
             int onlySecond = second.Tags.Count - together;
             int onlyFirst = first.Tags.Count - together;
 
-            return Math.Min(together, Math.Min(onlyFirst, onlySecond));
+
+            int diff = Math.Min(together, Math.Min(onlyFirst, onlySecond));
+            return diff;
+            // return diff * 100000 - second.Tags.Count;
+
+            //double mid = ((double)onlySecond + onlyFirst + together) / 3;
+            //double distFromBest = (mid - onlySecond) * (mid - onlySecond) +
+            //                      (mid - onlyFirst) * (mid - onlyFirst) +
+            //                      (mid - together) * (mid - together);
+            // return distFromBest;
         }
     }
 

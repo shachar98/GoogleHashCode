@@ -32,12 +32,28 @@ namespace _2019_Qualification
                     photo.Direction = Directions.Vertical;
                 }
                 
-                photo.Tags = photoStr.ToList().Skip(2).OrderBy(_ => _).Select(_ => _.GetHashCode()).ToList();
+                photo.Tags = photoStr.ToList().Skip(2).OrderBy(_ => _).Select(_ => GetCode(_)).ToList();
 
                 input.Photos.Add(photo);
             }
 
+            input.NumOfTags = codesMap.Count;
             return input;
+        }
+
+        Dictionary<string, int> codesMap = new Dictionary<string, int>();
+
+        private int GetCode(string tag)
+        {
+            if (codesMap.TryGetValue(tag, out int code))
+            {
+                return code;
+            }
+            else
+            {
+                codesMap.Add(tag, codesMap.Count);
+                return codesMap.Count - 1;
+            }
         }
     }
 }

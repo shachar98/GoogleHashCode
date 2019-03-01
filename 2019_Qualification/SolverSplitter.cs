@@ -12,12 +12,12 @@ namespace _2019_Qualification
         protected override ProblemOutput Solve(ProblemInput input)
         {
             Solver solver = new Solver();
-            int parts = 5;
+            int parts = 15;
             var photos = input.Photos;
             photos = photos.OrderBy(_ => _.Tags.Count).ToList();
             int splitSize = photos.Count / parts;
             List<Slide> slides = new List<Slide>();
-            ProblemInput newInput = new ProblemInput();
+            ProblemInput newInput = new ProblemInput() { NumOfTags = input.NumOfTags };
             int count = 0;
             foreach (var item in photos)
             {
@@ -26,7 +26,7 @@ namespace _2019_Qualification
                     count++;
                     Console.WriteLine(count);
                     slides.AddRange(solver.Solve(newInput, this.NumbersGenerator, this.ProblemName).Slideshow);
-                    newInput = new ProblemInput();
+                    newInput = new ProblemInput() { NumOfTags = input.NumOfTags };
                 }
 
                 newInput.Photos.Add(item);

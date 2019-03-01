@@ -9,5 +9,6 @@ namespace _2019_Qualification
     public class ProblemInput
     {
         public List<Photo> Photos { get; set; } = new List<Photo>();
+        public int NumOfTags { get; set; }
     }
 }
